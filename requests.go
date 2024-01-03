@@ -18,8 +18,8 @@ type requestBody struct {
 
 var json = jsoniter.ConfigCompatibleWithStandardLibrary
 
-// DoIt 发送请求
-func DoIt[T any, R any](url, appKey, appSecret string, data T, result R, funcHeader func(header http.Header)) error {
+// Request 发送请求
+func Request[T any, R any](url, appKey, appSecret string, data T, result R, funcHeader func(header http.Header)) error {
 	return Call(url, appKey, appSecret, data, funcHeader, func(response *http.Response) error {
 		return json.NewDecoder(response.Body).Decode(result)
 	})
@@ -32,11 +32,11 @@ func Call[T any](url, appKey, appSecret string, data T, funcHeader func(header h
 	if err != nil {
 		return err
 	}
-	return Request(url, appKey, appSecret, string(b), funcHeader, funcResponse)
+	return POST(url, appKey, appSecret, string(b), funcHeader, funcResponse)
 }
 
-// Request 发送请求
-func Request(url, appKey, appSecret, data string, funcHeader func(header http.Header), funcResponse func(response *http.Response) error) error {
+// POST 发送请求
+func POST(url, appKey, appSecret, data string, funcHeader func(header http.Header), funcResponse func(response *http.Response) error) error {
 	timestamp := time.Now().Unix()
 	signature := Signature(appKey, appSecret, data, timestamp)
 	body := requestBody{
