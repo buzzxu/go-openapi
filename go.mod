@@ -1,4 +1,4 @@
-module golang-openapi
+module github.com/buzzxu/go-openapi
 
 go 1.21
 
