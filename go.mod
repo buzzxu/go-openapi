@@ -1,9 +1,9 @@
 module github.com/buzzxu/go-openapi
 
-go 1.21
+go 1.22
 
 require (
-	github.com/buzzxu/boys v0.3.7
+	github.com/buzzxu/boys v0.3.9
 	github.com/json-iterator/go v1.1.12
 )
 
